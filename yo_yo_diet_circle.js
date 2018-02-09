@@ -3,11 +3,16 @@
 //K01 -- They lock us in the tower whenever we get caught                                        
 //2018-02-07
 
+
+var directionx;
+var directiony;
+
+var last;
 var DVDx;
 var DVDy;
-var requestID;
+var requestID = 0;
 var decr;
-var decr2;
+
 var rad;
 var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
@@ -84,47 +89,31 @@ var halt = function(){
 
 
 var animate2 = function(){
-    setup2();
-    if (0 < DVDx < 600 && 0 < DVDy < 600 && DVDx < 550 && DVDy < 575){ //checks to see if the rectagle touches the borders
-	if (decr2 == 0){
-	    DVDx+=.1;
-	    DVDy-=.1;
-	}
-	else {
-	    DVDx-=.1;
-	    DVDy+=.1;
-	}
+    clear();
+    if (requestID == 0){
+	setup2();
     }
     else {
-	if (decr == 0){
-	    decr = 1;
-	    DVDx+=.1;
-	    DVDy+=.1;
-	    
+	if (DVDx >= 550 || DVDx <= -50){
+	    directionx *= -1;
 	}
-	else {
-	    decr = 0;
-	    DVDx-=.1;
-	    DVDy-=1;
+	if (DVDy >= 575 || DVDy <= -25){
+	    directiony *= -1;
 	}
-    
     }
 
-    setTimeout( function(){
-    clear();
-    console.log("DVDx and y:   ");
-    console.log(DVDx);
-    console.log(DVDy);
+    DVDx += 3 * directionx;
+    DVDy += 3 * directiony;
     ctx.fillRect(DVDx, DVDy, 100, 50);
     requestID = window.requestAnimationFrame(animate2);
     console.log(requestID);
-	} , 3000 );
 }
 	
 
 var setup2 = function(){
     clear();
-    decr2 = 0;
+    directionx = 1;
+    directiony = -1;
     var startx = Math.floor(Math.random() * 600);
     var starty = Math.floor(Math.random() * 600);
     DVDx = startx;
@@ -132,6 +121,7 @@ var setup2 = function(){
     ctx.fillStyle = "black";
     ctx.fillRect(startx, starty, 100, 50);
     ctx.stroke;
-
+    
+    
 }
 	 
