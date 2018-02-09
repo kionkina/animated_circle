@@ -3,17 +3,22 @@
 //K01 -- They lock us in the tower whenever we get caught                                        
 //2018-02-07
 
+var DVDx;
+var DVDy;
 var requestID;
 var decr;
+var decr2;
 var rad;
 var c = document.getElementById("slate");
 var ctx = c.getContext("2d");
 var star = document.getElementById("start");
 var stahp = document.getElementById("halt");
+var movie = document.getElementById("movie");
 
 
 star.addEventListener("click", function(){animate();});
 stahp.addEventListener("click", function(){halt();});
+movie.addEventListener("click", function(){animate2();});
 
 var setup = function(e){
     decr = 0;
@@ -69,11 +74,64 @@ var changeSize = function(){
     console.log(requestID);
 }
 
+var clear = function(){
+    ctx.clearRect(0,0, 600,600);
+}
+    
+var halt = function(){
+    window.cancelAnimationFrame(requestID);
+}
 
-    var clear = function(){
-	ctx.clearRect(0,0, 600,600);
+
+var animate2 = function(){
+    setup2();
+    if (0 < DVDx < 600 && 0 < DVDy < 600 && DVDx < 550 && DVDy < 575){ //checks to see if the rectagle touches the borders
+	if (decr2 == 0){
+	    DVDx+=.1;
+	    DVDy-=.1;
+	}
+	else {
+	    DVDx-=.1;
+	    DVDy+=.1;
+	}
+    }
+    else {
+	if (decr == 0){
+	    decr = 1;
+	    DVDx+=.1;
+	    DVDy+=.1;
+	    
+	}
+	else {
+	    decr = 0;
+	    DVDx-=.1;
+	    DVDy-=1;
+	}
+    
     }
 
-	var halt = function(){
-	    window.cancelAnimationFrame(requestID);
-	}
+    setTimeout( function(){
+    clear();
+    console.log("DVDx and y:   ");
+    console.log(DVDx);
+    console.log(DVDy);
+    ctx.fillRect(DVDx, DVDy, 100, 50);
+    requestID = window.requestAnimationFrame(animate2);
+    console.log(requestID);
+	} , 3000 );
+}
+	
+
+var setup2 = function(){
+    clear();
+    decr2 = 0;
+    var startx = Math.floor(Math.random() * 600);
+    var starty = Math.floor(Math.random() * 600);
+    DVDx = startx;
+    DVDy = starty;
+    ctx.fillStyle = "black";
+    ctx.fillRect(startx, starty, 100, 50);
+    ctx.stroke;
+
+}
+	 
