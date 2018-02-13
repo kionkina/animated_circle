@@ -20,9 +20,6 @@ var star = document.getElementById("start");
 var stahp = document.getElementById("halt");
 var movie = document.getElementById("movie");
 
-var logo = new Image();
-logo.src = "dvd_video.png"
-
 
 star.addEventListener("click", function(){animate();});
 stahp.addEventListener("click", function(){halt();});
@@ -107,7 +104,7 @@ var animate2 = function(){
 
     DVDx += 3 * directionx;
     DVDy += 3 * directiony;
-    ctx.drawImage(logo, DVDx, DVDy, 100, 50);
+    ctx.fillRect(DVDx, DVDy, 100, 50);
     requestID = window.requestAnimationFrame(animate2);
     console.log(requestID);
 }
@@ -121,10 +118,9 @@ var setup2 = function(){
     var starty = Math.floor(Math.random() * 600);
     DVDx = startx;
     DVDy = starty;
-    ctx.drawImage(logo, DVDx, DVDy, 100, 50);
-    //    ctx.fillStyle = "black";
-    //ctx.fillRect(startx, starty, 100, 50);
-    //ctx.stroke;
+    ctx.fillStyle = "black";
+    ctx.fillRect(startx, starty, 100, 50);
+    ctx.stroke;
     
     
 }
